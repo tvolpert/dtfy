@@ -1,0 +1,27 @@
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+(function() {
+  var theHash = {};
+  window.location.hash.replace(/^#\/?/, '').split('&').forEach(function(kv) {
+    var spl = kv.indexOf('=');
+    if (spl != -1) {
+      theHash[kv.substring(0, spl)] = decodeURIComponent(kv.substring(spl+1));
+    }
+  });
+  console.log('initial hash', theHash);
+  if (theHash.access_token) {
+	localStorage.setItem('access_token', theHash.access_token);
+    // window.opener.postMessage(JSON.stringify({
+      // type:'access_token',
+      // access_token: theHash.access_token,
+      //expires_in: theHash.expires_in || 0
+    //}), 'http://timvolpert.com');
+   window.close();
+    }
+})();
+
+</script>
+</head>
+</html>
